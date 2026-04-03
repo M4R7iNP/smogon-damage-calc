@@ -4932,7 +4932,394 @@ const ZA_PATCH: {[name: string]: DeepPartial<MoveData>} = {
   },
 };
 
-const SV: {[name: string]: MoveData} = extend(true, {}, SS, SV_PATCH, ZA_PATCH);
+// =============================================================================
+// TMT (Too Many Types) MOVE DATA
+// Type updates for existing moves and new custom moves
+// =============================================================================
+
+const TMT_TYPE_UPDATES: {[name: string]: DeepPartial<MoveData>} = {
+  // Ancient type moves
+  'Ancient Power': {type: 'Ancient'},
+  'Roar of Time': {type: 'Ancient'},
+
+  // Angy type moves
+  'Take Down': {type: 'Angy'},
+  'Thrash': {type: 'Angy'},
+  'Dragon Rage': {type: 'Angy'},
+  'Rage': {type: 'Angy'},
+  'Outrage': {type: 'Angy'},
+  'Mean Look': {type: 'Angy'},
+  'Frustration': {type: 'Angy'},
+  'Howl': {type: 'Angy'},
+  'Head Charge': {type: 'Angy'},
+  'Stomping Tantrum': {type: 'Angy'},
+
+  // Baby type moves
+  'Egg Bomb': {type: 'Baby'},
+  'Rest': {type: 'Baby'},
+  'Snore': {type: 'Baby'},
+  'Charm': {type: 'Baby'},
+  'Sleep Talk': {type: 'Baby'},
+  'Uproar': {type: 'Baby'},
+  'Yawn': {type: 'Baby'},
+  'Fake Tears': {type: 'Baby'},
+  'Baby-Doll Eyes': {type: 'Baby'},
+
+  // Bad type moves
+  'Body Slam': {type: 'Bad'},
+  'Hyper Beam': {type: 'Bad'},
+  'Self-Destruct': {type: 'Bad'},
+  'Explosion': {type: 'Bad'},
+  'Endure': {type: 'Bad'},
+  'Swagger': {type: 'Bad'},
+  'Giga Impact': {type: 'Bad'},
+  'Attract': {type: 'Bad'},
+  'Smokescreen': {type: 'Bad'},
+
+  // Ball type moves
+  'Defense Curl': {type: 'Ball'},
+  'Rollout': {type: 'Ball'},
+  'Ice Ball': {type: 'Ball'},
+
+  // Boomer type moves
+  'Future Sight': {type: 'Boomer'},
+  'Chip Away': {type: 'Boomer'},
+  'Wild Charge': {type: 'Boomer'},
+  'Parabolic Charge': {type: 'Boomer'},
+  'Water Shuriken': {type: 'Boomer'},
+
+  // Crab type moves
+  'Vise Grip': {type: 'Crab'},
+  'Crabhammer': {type: 'Crab'},
+  'Crush Claw': {type: 'Crab'},
+
+  // Dance type moves
+  'Rolling Kick': {type: 'Dance'},
+  'Petal Dance': {type: 'Dance'},
+  'Feather Dance': {type: 'Dance'},
+  'Dragon Dance': {type: 'Dance'},
+  'Quiver Dance': {type: 'Dance'},
+  'Fiery Dance': {type: 'Dance'},
+  'Revelation Dance': {type: 'Dance'},
+  'Teeter Dance': {type: 'Dance'},
+
+  // Dream type moves
+  'Hypnosis': {type: 'Dream'},
+  'Amnesia': {type: 'Dream'},
+  'Dream Eater': {type: 'Dream'},
+  'Nightmare': {type: 'Dream'},
+  'Dark Void': {type: 'Dream'},
+
+  // Emerald type moves
+  'Dragon Ascent': {type: 'Emerald'},
+
+  // Fluffy type moves
+  'Cotton Spore': {type: 'Fluffy'},
+  'Pollen Puff': {type: 'Fluffy'},
+
+  // Friend type moves
+  'Return': {type: 'Friend'},
+  'Present': {type: 'Friend'},
+  'Assist': {type: 'Friend'},
+  'Play Nice': {type: 'Friend'},
+
+  // Furry type moves
+  'Flatter': {type: 'Furry'},
+
+  // Gamer type moves
+  'Toxic': {type: 'Gamer'},
+  'Tri Attack': {type: 'Gamer'},
+  'Protect': {type: 'Gamer'},
+  'Acupressure': {type: 'Gamer'},
+  'Power Trick': {type: 'Gamer'},
+  'Power Swap': {type: 'Gamer'},
+  'Guard Swap': {type: 'Gamer'},
+  'Switcheroo': {type: 'Gamer'},
+  'Trick Room': {type: 'Gamer'},
+  'Sandstorm': {type: 'Gamer'},
+
+  // Gender type moves
+  'Dazzling Gleam': {type: 'Gender'},
+
+  // Gun type moves
+  'Lock-On': {type: 'Gun'},
+  'Aura Sphere': {type: 'Gun'},
+  'Power Gem': {type: 'Gun'},
+  'Vacuum Wave': {type: 'Gun'},
+  'Bullet Punch': {type: 'Gun'},
+  'Mirror Shot': {type: 'Gun'},
+
+  // Guys type moves
+  'Fury Attack': {type: 'Guys'},
+  'Barrage': {type: 'Guys'},
+  'Fury Swipes': {type: 'Guys'},
+  'Sweet Kiss': {type: 'Guys'},
+  'Encore': {type: 'Guys'},
+  'Beat Up': {type: 'Guys'},
+
+  // Liquid type moves
+  'Acid Armor': {type: 'Liquid'},
+  'Milk Drink': {type: 'Liquid'},
+  'Liquidation': {type: 'Liquid'},
+
+  // Little type moves
+  'Minimize': {type: 'Little'},
+
+  // Magic type moves
+  'Barrier': {type: 'Magic'},
+  'Light Screen': {type: 'Magic'},
+  'Reflect': {type: 'Magic'},
+  'Metronome': {type: 'Magic'},
+  'Kinesis': {type: 'Magic'},
+  'Magic Coat': {type: 'Magic'},
+  'Mystical Fire': {type: 'Magic'},
+  'Magical Leaf': {type: 'Magic'},
+  'Magic Room': {type: 'Magic'},
+  'Magic Powder': {type: 'Magic'},
+
+  // Monke type moves
+  'Screech': {type: 'Monke'},
+  'Fling': {type: 'Monke'},
+
+  // Normal2 type moves
+  'Conversion 2': {type: 'Normal2'},
+
+  // Ou type moves
+  'Ice Beam': {type: 'Ou'},
+  'Thunderbolt': {type: 'Ou'},
+
+  // Prime type moves
+  'Pay Day': {type: 'Prime'},
+  'Last Resort': {type: 'Prime'},
+
+  // Right type moves
+  'Trump Card': {type: 'Right'},
+
+  // Sharp type moves
+  'Scratch': {type: 'Sharp'},
+  'Guillotine': {type: 'Sharp'},
+  'Razor Wind': {type: 'Sharp'},
+  'Swords Dance': {type: 'Sharp'},
+  'Cut': {type: 'Sharp'},
+  'Pin Missile': {type: 'Sharp'},
+  'Spike Cannon': {type: 'Sharp'},
+  'Sharpen': {type: 'Sharp'},
+  'Super Fang': {type: 'Sharp'},
+  'Slash': {type: 'Sharp'},
+  'Spikes': {type: 'Sharp'},
+  'X-Scissor': {type: 'Sharp'},
+
+  // Silly type moves
+  'Dizzy Punch': {type: 'Silly'},
+  'Tickle': {type: 'Silly'},
+
+  // Smash type moves
+  'Submission': {type: 'Smash'},
+
+  // Song type moves
+  'Boomburst': {type: 'Song'},
+  'Sing': {type: 'Song'},
+  'Supersonic': {type: 'Song'},
+  'Perish Song': {type: 'Song'},
+  'Grass Whistle': {type: 'Song'},
+  'Chatter': {type: 'Song'},
+  'Round': {type: 'Song'},
+  'Echoed Voice': {type: 'Song'},
+  'Relic Song': {type: 'Song'},
+  'Disarming Voice': {type: 'Song'},
+  'Sparkling Aria': {type: 'Song'},
+  'Clanging Scales': {type: 'Song'},
+  'Clangorous Soul': {type: 'Song'},
+
+  // Space type moves
+  'Seismic Toss': {type: 'Space'},
+  'Swift': {type: 'Space'},
+  'Morning Sun': {type: 'Space'},
+  'Moonlight': {type: 'Space'},
+  'Sunny Day': {type: 'Space'},
+  'Wish': {type: 'Space'},
+  'Meteor Mash': {type: 'Space'},
+  'Cosmic Power': {type: 'Space'},
+  'Gravity': {type: 'Space'},
+  'Draco Meteor': {type: 'Space'},
+  'Spacial Rend': {type: 'Space'},
+  'Lunar Dance': {type: 'Space'},
+  'Sunsteel Strike': {type: 'Space'},
+  'Moongeist Beam': {type: 'Space'},
+  'Meteor Assault': {type: 'Space'},
+  'Meteor Beam': {type: 'Space'},
+
+  // Stinky type moves
+  'Poison Gas': {type: 'Stinky'},
+  'Gunk Shot': {type: 'Stinky'},
+  'Belch': {type: 'Stinky'},
+  'Corrosive Gas': {type: 'Stinky'},
+  'Odor Sleuth': {type: 'Stinky'},
+
+  // Sus type moves
+  'Mimic': {type: 'Sus'},
+  'Harden': {type: 'Sus'},
+  'Lick': {type: 'Sus'},
+  'Transform': {type: 'Sus'},
+  'Thief': {type: 'Sus'},
+  'Fake Out': {type: 'Sus'},
+  'Facade': {type: 'Sus'},
+  'Trick': {type: 'Sus'},
+  'Role Play': {type: 'Sus'},
+  'Embargo': {type: 'Sus'},
+  'Copycat': {type: 'Sus'},
+  'Sucker Punch': {type: 'Sus'},
+
+  // Type type moves
+  'Sketch': {type: 'Type'},
+
+  // Ugly type moves
+  'Covet': {type: 'Ugly'},
+  'Lovely Kiss': {type: 'Ugly'},
+  'Leer': {type: 'Ugly'},
+  'Flail': {type: 'Ugly'},
+  'Scary Face': {type: 'Ugly'},
+  'Pain Split': {type: 'Ugly'},
+  'Revenge': {type: 'Ugly'},
+
+  // Vibe type moves
+  'Calm Mind': {type: 'Vibe'},
+  'Lucky Chant': {type: 'Vibe'},
+  'Heart Swap': {type: 'Vibe'},
+
+  // Zoomer type moves
+  'Clear Smog': {type: 'Zoomer'},
+};
+
+// New TMT moves
+const TMT_NEW_MOVES: {[name: string]: MoveData} = {
+  // Damaging moves - Pure aliases
+  'Chickpea Charm': {bp: 0, type: 'Bean', category: 'Status', priority: 1},
+  'Cuddle Slam': {bp: 80, type: 'Fluffy', category: 'Physical', makesContact: true},
+  'Lentil Leech': {bp: 75, type: 'Bean', category: 'Special', drain: [1, 2]},
+  'Squirting Flower': {bp: 60, type: 'Silly', category: 'Physical', makesContact: true},
+  'Lima Lash': {bp: 45, type: 'Bean', category: 'Physical', makesContact: true},
+  'Pee-Yew!': {bp: 20, type: 'Stinky', category: 'Special', secondaries: true},
+  'Vibe Check': {bp: 60, type: 'Vibe', category: 'Physical', makesContact: true},
+  'Eerie Echo': {bp: 50, type: 'Dream', category: 'Special', secondaries: true},
+  'Etherwave': {bp: 1, type: 'Dream', category: 'Special'},
+  'Lullaby': {bp: 55, type: 'Dream', category: 'Special', secondaries: true},
+  'Hug': {bp: 0, type: 'Friend', category: 'Status'},
+  'Puff Up': {bp: 0, type: 'Fluffy', category: 'Status'},
+  'Sweet Cocoa': {bp: 0, type: 'Bean', category: 'Status'},
+  'Protest': {bp: 120, type: 'Left', category: 'Physical', makesContact: true},
+  'Riot': {bp: 120, type: 'Right', category: 'Physical', makesContact: true},
+  'Pillow Fight': {bp: 15, type: 'Guys', category: 'Physical', makesContact: true, multihit: [2, 5]},
+  'Two to Tango': {bp: 60, type: 'Dance', category: 'Physical', makesContact: true, isSound: true},
+  'Wombo Combo': {bp: 60, type: 'Gamer', category: 'Physical', makesContact: true, isSound: true},
+
+  // Damaging moves - Modified aliases
+  'Ape Escape': {bp: 70, type: 'Monke', category: 'Physical', makesContact: true},
+  'Banana Blitz': {bp: 120, type: 'Monke', category: 'Physical', recoil: [1, 3], makesContact: true},
+  'Bare Arms': {bp: 120, type: 'Right', category: 'Physical', makesContact: true, isPunch: true},
+  'Fireball': {bp: 95, type: 'Magic', category: 'Special', target: 'allAdjacentFoes'},
+  'Gaster Blaster': {bp: 95, type: '???', category: 'Special', secondaries: true},
+  'Dreamweave': {bp: 70, type: 'Dream', category: 'Special', overrideDefensiveStat: 'def'},
+  'Fluffy Fury': {bp: 95, type: 'Fluffy', category: 'Physical', makesContact: true},
+  'Glomp': {bp: 70, type: 'Furry', category: 'Physical', makesContact: true, secondaries: true},
+  'Happy Feet': {bp: 65, type: 'Dance', category: 'Physical', makesContact: true, secondaries: true, self: {boosts: {spe: 1}}},
+  'Rodeo': {bp: 65, type: 'Ohio', category: 'Physical', makesContact: true, self: {boosts: {spe: 1}}},
+  'Hype Train': {bp: 30, type: 'Prime', category: 'Physical', makesContact: true},
+  'Let Me Ball': {bp: 90, type: 'Ball', category: 'Physical'},
+  'Kidney Crash': {bp: 100, type: 'Bean', category: 'Physical', recoil: [1, 3], makesContact: true},
+  'Plush Punch': {bp: 75, type: 'Fluffy', category: 'Physical', makesContact: true, isPunch: true, secondaries: true},
+  'Prime Sub': {bp: 60, type: 'Prime', category: 'Physical'},
+  'Rocket Punch': {bp: 60, type: 'Pikachu', category: 'Physical', makesContact: true, isPunch: true, priority: 1},
+  'Snug Strike': {bp: 80, type: 'Fluffy', category: 'Physical', makesContact: true},
+  'Spectral Surge': {bp: 110, type: 'Dream', category: 'Special'},
+  'Starstrike': {bp: 90, type: 'Space', category: 'Special'},
+  'Wedding Cake': {bp: 150, type: 'Silly', category: 'Special'},
+
+  // Damaging moves - New custom
+  '5 Nights': {bp: 250, type: 'Gamer', category: 'Special'},
+  'Bad Time': {bp: 0, type: '???', category: 'Status'},
+  'Ball Pit': {bp: 10, type: 'Furry', category: 'Physical', multihit: [2, 5], secondaries: true},
+  'Bean Bomb': {bp: 90, type: 'Bean', category: 'Special'},
+  'Born to Shit': {bp: 60, type: 'Stinky', category: 'Special', secondaries: true},
+  'Break It Down': {bp: 70, type: 'Dance', category: 'Physical', makesContact: true, secondaries: true},
+  'Cha Cha': {bp: 85, type: 'Dance', category: 'Physical', makesContact: true},
+  'Disco Drop': {bp: 70, type: 'Dance', category: 'Special'},
+  'Eldritch Blast': {bp: 40, type: 'Magic', category: 'Special'},
+  'Fossilize': {bp: 40, type: 'Ancient', category: 'Physical', secondaries: true},
+  'Groove Pulse': {bp: 70, type: 'Vibe', category: 'Special', isPulse: true},
+  'Hey Chill': {bp: 50, type: 'Vibe', category: 'Special', secondaries: true},
+  'Magic Missile': {bp: 20, type: 'Magic', category: 'Special', multihit: 3},
+  'Metal Pipe': {bp: 50, type: 'Zoomer', category: 'Physical', secondaries: true},
+  'Normal Pill': {bp: 70, type: 'Normal', category: 'Physical'},
+  'Ooga Booga': {bp: 40, type: 'Monke', category: 'Physical', makesContact: true},
+  'OwO': {bp: 100, type: 'Furry', category: 'Physical', makesContact: true},
+  'Pea Split': {bp: 95, type: 'Bean', category: 'Physical', makesContact: true},
+  'Peer Pressure': {bp: 110, type: 'Guys', category: 'Special'},
+  'Pika Bolt': {bp: 90, type: 'Pikachu', category: 'Special', secondaries: true},
+  'Pikattack': {bp: 85, type: 'Pikachu', category: 'Physical', makesContact: true, secondaries: true},
+  'Samba Strike': {bp: 40, type: 'Dance', category: 'Physical', makesContact: true},
+  'Screen Peek': {bp: 130, type: 'Gamer', category: 'Special', priority: 2},
+  'Send Email': {bp: 60, type: 'Boring', category: 'Physical', secondaries: true},
+  'Shoot': {bp: 160, type: 'Gun', category: 'Physical'},
+  'Snow Pea': {bp: 50, type: 'Bean', category: 'Special', secondaries: true},
+  'Somnium': {bp: 90, type: 'Dream', category: 'Special', secondaries: true},
+  'Static Shuffle': {bp: 50, type: 'Dance', category: 'Physical', makesContact: true, secondaries: true},
+  'Stink Bomb': {bp: 40, type: 'Stinky', category: 'Special', target: 'allAdjacentFoes', secondaries: true},
+  'Sugar Snap': {bp: 75, type: 'Bean', category: 'Physical', makesContact: true},
+  'Teddy Tumble': {bp: 40, type: 'Fluffy', category: 'Physical', makesContact: true},
+  'The Bite of 87': {bp: 0, type: 'Gamer', category: 'Physical', makesContact: true, isBite: true},
+  'Unga Bunga': {bp: 70, type: 'Monke', category: 'Physical', makesContact: true},
+  'Uplift': {bp: 90, type: 'Vibe', category: 'Special'},
+  'Wait': {bp: 100, type: 'Boring', category: 'Special'},
+  'Wavedash': {bp: 40, type: 'Gender', category: 'Physical', makesContact: true, priority: 1},
+
+  // Status/Setup moves
+  '9 to 5': {bp: 0, type: 'Boring', category: 'Status'},
+  'Axe': {bp: 0, type: 'Stinky', category: 'Status'},
+  'Babify': {bp: 0, type: 'Baby', category: 'Status'},
+  'Backtomonke': {bp: 0, type: 'Monke', category: 'Status'},
+  'Barbecue': {bp: 0, type: 'Ohio', category: 'Status'},
+  'Carcinization': {bp: 0, type: 'Crab', category: 'Status'},
+  'Content': {bp: 0, type: 'Prime', category: 'Status'},
+  'Crab Rave': {bp: 0, type: 'Crab', category: 'Status', self: {boosts: {atk: 1, spe: 1}}},
+  'Dab Me Up': {bp: 0, type: 'Guys', category: 'Status'},
+  'Deport': {bp: 0, type: 'Right', category: 'Status'},
+  'Dollar on a Bill': {bp: 0, type: 'Silly', category: 'Status'},
+  'Double Jump': {bp: 85, type: 'Gender', category: 'Physical', makesContact: true},
+  'Eat Cracker': {bp: 0, type: 'Boring', category: 'Status'},
+  'Eject': {bp: 0, type: 'Sus', category: 'Status'},
+  'File W9': {bp: 0, type: 'Boring', category: 'Status'},
+  'Fillabuster': {bp: 0, type: 'Right', category: 'Status'},
+  'Flash Mob': {bp: 0, type: 'Dance', category: 'Status'},
+  'Hypno Goggles': {bp: 0, type: 'Silly', category: 'Status'},
+  'Impeach': {bp: 0, type: 'Left', category: 'Status'},
+  'Imposter': {bp: 0, type: 'Sus', category: 'Status'},
+  'Kiss the Homies': {bp: 0, type: 'Guys', category: 'Status'},
+  'Mage Armor': {bp: 0, type: 'Magic', category: 'Status'},
+  'Monke Moment': {bp: 0, type: 'Monke', category: 'Status'},
+  'PantStayBrown': {bp: 0, type: 'Stinky', category: 'Status'},
+  'Pika Protect': {bp: 0, type: 'Pikachu', category: 'Status'},
+  'Pinto Power': {bp: 0, type: 'Bean', category: 'Status'},
+  'Ponder': {bp: 0, type: 'Magic', category: 'Status', self: {boosts: {spa: 1, spd: 1}}},
+  'Rawr XD': {bp: 0, type: 'Furry', category: 'Status'},
+  'Rootintootin': {bp: 0, type: 'Ohio', category: 'Status', self: {boosts: {atk: 1, spe: 1}}},
+  'Sabotage': {bp: 0, type: 'Sus', category: 'Status'},
+  'Singularity': {bp: 0, type: 'Type', category: 'Status'},
+  'Sip Coffee': {bp: 0, type: 'Bean', category: 'Status'},
+  'Soy Shield': {bp: 0, type: 'Bean', category: 'Status', self: {boosts: {spd: 2}}},
+  'Squad Goals': {bp: 0, type: 'Zoomer', category: 'Status'},
+  'Toon Up': {bp: 0, type: 'Silly', category: 'Status'},
+  'Trans Rights': {bp: 0, type: 'Gender', category: 'Status'},
+  'Uh Oh Stinky': {bp: 0, type: 'Stinky', category: 'Status'},
+  'Unionize': {bp: 0, type: 'Left', category: 'Status'},
+  'Uno Reverse': {bp: 0, type: '???', category: 'Status'},
+  'Vent': {bp: 80, type: 'Sus', category: 'Physical', makesContact: true},
+  'Vibe Shift': {bp: 0, type: 'Vibe', category: 'Status'},
+  'Warm Hug': {bp: 0, type: 'Fluffy', category: 'Status'},
+  "WeDon'tWipe": {bp: 0, type: 'Stinky', category: 'Status'},
+};
+
+const SV: {[name: string]: MoveData} = extend(true, {}, SS, SV_PATCH, ZA_PATCH, TMT_TYPE_UPDATES, TMT_NEW_MOVES);
 
 export const MOVES = [{}, RBY, GSC, ADV, DPP, BW, XY, SM, SS, SV];
 

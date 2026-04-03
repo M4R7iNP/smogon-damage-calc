@@ -398,8 +398,18 @@ export function calculateSMSSSV(
       isRingTarget
     )
     : 1;
+  const type3Effectiveness = defender.types[2]
+    ? getMoveEffectiveness(
+      gen,
+      move,
+      defender.types[2],
+      isGhostRevealed,
+      field.isGravity,
+      isRingTarget
+    )
+    : 1;
 
-  let typeEffectiveness = type1Effectiveness * type2Effectiveness;
+  let typeEffectiveness = type1Effectiveness * type2Effectiveness * type3Effectiveness;
 
   if (defender.teraType && defender.teraType !== 'Stellar') {
     typeEffectiveness = getMoveEffectiveness(
@@ -1114,7 +1124,15 @@ export function calculateBPModsSMSSSV(
       field.isGravity,
       isRingTarget
     ) : 1;
-    if (type1Effectiveness * type2Effectiveness >= 2) {
+    const type3Effectiveness = types[2] ? getMoveEffectiveness(
+      gen,
+      move,
+      types[2],
+      isGhostRevealed,
+      field.isGravity,
+      isRingTarget
+    ) : 1;
+    if (type1Effectiveness * type2Effectiveness * type3Effectiveness >= 2) {
       bpMods.push(5461);
       desc.moveBP = basePower * (5461 / 4096);
     }

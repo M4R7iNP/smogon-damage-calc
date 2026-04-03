@@ -152,13 +152,13 @@ export function getMoveEffectiveness(
   } else if (move.named('Nihil Light') && type === 'Fairy') {
     return 1;
   } else {
-    let effectiveness = gen.types.get(toID(move.type))!.effectiveness[type]!;
+    let effectiveness = gen.types.get(toID(move.type))!.effectiveness[type] ?? 1;
     if (effectiveness === 0 && isRingTarget) {
       effectiveness = 1;
     }
     if (move.named('Flying Press')) {
       // Can only do this because flying has no other interactions
-      effectiveness *= gen.types.get('flying' as ID)!.effectiveness[type]!;
+      effectiveness *= gen.types.get('flying' as ID)!.effectiveness[type] ?? 1;
     }
     return effectiveness;
   }

@@ -26,9 +26,17 @@ export type NatureName =
   'Rash' | 'Relaxed' | 'Sassy' | 'Serious' | 'Timid';
 
 export type TypeName =
-  'Normal' | 'Fighting' | 'Flying' | 'Poison' | 'Ground' | 'Rock' | 'Bug' | 'Ghost' | 'Steel' |
-  'Fire' | 'Water' | 'Grass' | 'Electric' | 'Psychic' | 'Ice' | 'Dragon' | 'Dark' | 'Fairy' |
-  'Stellar' | '???';
+  '???' | 'Normal' | 'Fighting' | 'Flying' | 'Poison' | 'Ground' |
+  'Rock' | 'Bug' | 'Ghost' | 'Steel' | 'Fire' |
+  'Water' | 'Grass' | 'Electric' | 'Psychic' | 'Ice' | 'Dragon' |
+  'Dark' | 'Fairy' | 'Monke' | 'Angy' | 'Baby' | 'Friend' |
+  'Guys' | 'Liquid' | 'Vibe' | 'Song' | 'Space' | 'Fluffy' |
+  'Sus' | 'Furry' | 'Bad' | 'Ancient' | 'Silly' | 'Stinky' |
+  'Sharp' | 'Magic' | 'Gender' | 'Little' | 'Crab' | 'Dream' |
+  'Right' | 'Left' | 'Zoomer' | 'Gamer' | 'Dance' | 'Boring' |
+  'Ugly' | 'Emerald' | 'Gun' | 'Pikachu' | 'Prime' | 'Ohio' |
+  'Deez Nuts' | 'Normal2' | 'Bean' | 'Boomer' | 'Smash' | 'Ou' |
+  'Ball' | 'Sans' | 'Reverse' | 'Type' | 'Stellar';
 
 export type MoveCategory = 'Physical' | 'Special' | 'Status';
 
@@ -142,7 +150,7 @@ export interface Species {
 
 export interface Specie extends Data<SpeciesName> {
   readonly kind: 'Species';
-  readonly types: [TypeName] | [TypeName, TypeName];
+  readonly types: [TypeName] | [TypeName, TypeName] | [TypeName, TypeName, TypeName];
   readonly baseStats: Readonly<StatsTable>;
   readonly weightkg: number;
   readonly gender?: GenderName;
